@@ -29,14 +29,14 @@ namespace OnTheBeachBackendTest.IntegrationTests
             };
 
             //Act
-            var flight = flightSearch.Search();
+            var flights = flightSearch.Search();
 
             //Assert
-            Assert.NotNull(flight);
-            Assert.True(flight.Any());
-            Assert.True(flight.First().Id == 5);
-            Assert.True(flight.First().From == "MAN");
-            Assert.True(flight.First().Price == 130);
+            Assert.NotNull(flights);
+            Assert.True(flights.Any());
+            Assert.True(flights.First().Id == 5);
+            Assert.True(flights.First().From == "MAN");
+            Assert.True(flights.First().Price == 130);
         }
 
         [Test]
@@ -51,14 +51,14 @@ namespace OnTheBeachBackendTest.IntegrationTests
             };
 
             //Act
-            var flight = flightSearch.Search();
+            var flights = flightSearch.Search();
 
             //Assert
-            Assert.NotNull(flight);
-            Assert.True(flight.Any());
-            Assert.True(flight.First().Id == 2);
-            Assert.True(flight.First().From == "MAN");
-            Assert.True(flight.First().To == "AGP");
+            Assert.NotNull(flights);
+            Assert.True(flights.Any());
+            Assert.True(flights.First().Id == 2);
+            Assert.True(flights.First().From == "MAN");
+            Assert.True(flights.First().To == "AGP");
         }
 
         [Test]
@@ -73,14 +73,14 @@ namespace OnTheBeachBackendTest.IntegrationTests
             };
 
             //Act
-            var flight = flightSearch.Search();
+            var flights = flightSearch.Search();
 
             //Assert
-            Assert.NotNull(flight);
-            Assert.True(flight.Any());
-            Assert.True(flight.First().Id == 6);
-            Assert.True(flight.First().From == "LGW");
-            Assert.True(flight.First().To == "PMI");
+            Assert.NotNull(flights);
+            Assert.True(flights.Any());
+            Assert.True(flights.First().Id == 6);
+            Assert.True(flights.First().From == "LGW");
+            Assert.True(flights.First().To == "PMI");
         }
 
         [Test]
@@ -95,14 +95,14 @@ namespace OnTheBeachBackendTest.IntegrationTests
             };
 
             //Act
-            var flight = flightSearch.Search();
+            var flights = flightSearch.Search();
 
             //Assert
-            Assert.NotNull(flight);
-            Assert.True(flight.Any());
-            Assert.True(flight.First().Id == 7);
-            Assert.True(flight.First().From == "MAN");
-            Assert.True(flight.First().To == "LPA");
+            Assert.NotNull(flights);
+            Assert.True(flights.Any());
+            Assert.True(flights.First().Id == 7);
+            Assert.True(flights.First().From == "MAN");
+            Assert.True(flights.First().To == "LPA");
         }
     }
 }
