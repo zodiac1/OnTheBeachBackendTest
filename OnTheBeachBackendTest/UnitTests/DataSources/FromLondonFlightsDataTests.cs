@@ -1,6 +1,6 @@
 using OnTheBeachBackendTest.BusinessLogic.DataSources;
+using OnTheBeachBackendTest.Data;
 using OnTheBeachBackendTest.Entities;
-using System.Text.Json;
 
 namespace OnTheBeachBackendTest.UnitTests.DataSources
 {
@@ -8,30 +8,19 @@ namespace OnTheBeachBackendTest.UnitTests.DataSources
     {
         private readonly string[] LONDON_AIRPORT_CODES = ["LCY", "LHR", "LGW", "LTN", "STN", "SEN"];
 
-        private IList<Flight>? TestFlights;
+        private IList<Flight>? TestFlightsData;
 
         [SetUp]
         public void Setup()
         {
-            using (var reader = new StreamReader("flight-data.json"))
-            {
-                var json = reader.ReadToEnd();
-                var flightsRaw = JsonSerializer.Deserialize<List<Dictionary<string, dynamic>>>(json);
-
-                TestFlights = new List<Flight>();
-
-                foreach (var item in flightsRaw)
-                {
-                    TestFlights.Add(new Flight { Id = item["id"].GetInt32(), Airline = item["airline"].GetString(), From = item["from"].GetString(), To = item["to"].GetString(), Price = item["price"].GetDouble(), DepartureDate = DateTime.Parse(item["departure_date"].GetString()) });
-                }
-            }
+            TestFlightsData = Helpers.GetTestFlightsData();
         }
 
         [Test]
         public void GetData_FromJson_ReturnsLondonFlightsOnly()
         {
             //Arrange
-            var londonFlightsData = new FromLondonFlightsData { Flights = TestFlights };
+            var londonFlightsData = new FromLondonFlightsData { Flights = TestFlightsData };
 
             //Act
             var londonFlights = londonFlightsData.GetData();

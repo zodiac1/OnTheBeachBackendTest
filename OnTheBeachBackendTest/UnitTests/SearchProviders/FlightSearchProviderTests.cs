@@ -1,32 +1,21 @@
 using Moq;
 using OnTheBeachBackendTest.BusinessLogic.SearchProviders;
+using OnTheBeachBackendTest.Data;
 using OnTheBeachBackendTest.Entities;
 using OnTheBeachBackendTest.Types.DataSources;
 using OnTheBeachBackendTest.Types.SearchPredicates;
 using OnTheBeachBackendTest.Types.Sorters;
-using System.Text.Json;
 
 namespace OnTheBeachBackendTest.UnitTests.SearchProviders
 {
     public class FlightSearchProviderTests
     {
-        private IList<Flight>? TestFlights;
+        private IList<Flight>? TestFlightsData;
 
         [SetUp]
         public void Setup()
         {
-            using (var reader = new StreamReader("flight-data.json"))
-            {
-                var json = reader.ReadToEnd();
-                var flightsRaw = JsonSerializer.Deserialize<List<Dictionary<string, dynamic>>>(json);
-
-                TestFlights = new List<Flight>();
-
-                foreach (var item in flightsRaw)
-                {
-                    TestFlights.Add(new Flight { Id = item["id"].GetInt32(), Airline = item["airline"].GetString(), From = item["from"].GetString(), To = item["to"].GetString(), Price = item["price"].GetDouble(), DepartureDate = DateTime.Parse(item["departure_date"].GetString()) });
-                }
-            }
+            TestFlightsData = Helpers.GetTestFlightsData();
         }
 
         [Test]
@@ -38,13 +27,13 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var sorterMock = new Mock<ISorter<Flight>>();
 
             dataSourceMock.Setup(x => x.GetData())
-                .Returns(TestFlights);
+                .Returns(TestFlightsData);
 
             searchPredicateMock.Setup(x => x.IsMatch(It.IsAny<Flight>()))
                 .Returns(true);
 
             sorterMock.Setup(x => x.Sort(It.IsAny<IEnumerable<Flight>>()))
-                .Returns(TestFlights);
+                .Returns(TestFlightsData);
 
             var dataSource = dataSourceMock.Object;
             var searchPredicate = searchPredicateMock.Object;
@@ -69,7 +58,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var sorterMock = new Mock<ISorter<Flight>>();
 
             dataSourceMock.Setup(x => x.GetData())
-                .Returns(TestFlights);
+                .Returns(TestFlightsData);
 
             searchPredicateMock.Setup(x => x.IsMatch(It.IsAny<Flight>()))
                 .Returns(false);
@@ -119,11 +108,11 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var searchPredicateMock = new Mock<ISearchPredicate<Flight>>();
             var sorterMock = new Mock<ISorter<Flight>>();
 
-            var testFlight1 = TestFlights[1];
-            var testFlight2 = TestFlights[2];
+            var testFlight1 = TestFlightsData[1];
+            var testFlight2 = TestFlightsData[2];
 
             dataSourceMock.Setup(x => x.GetData())
-                .Returns(TestFlights);
+                .Returns(TestFlightsData);
 
             searchPredicateMock.Setup(x => x.IsMatch(testFlight1))
                 .Returns(true);
@@ -132,7 +121,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
                 .Returns(true);
 
             sorterMock.Setup(x => x.Sort(It.IsAny<IEnumerable<Flight>>()))
-                .Returns(TestFlights);
+                .Returns(TestFlightsData);
 
             var dataSource = dataSourceMock.Object;
             var searchPredicate = searchPredicateMock.Object;

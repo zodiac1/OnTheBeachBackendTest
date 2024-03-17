@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="flight-data.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

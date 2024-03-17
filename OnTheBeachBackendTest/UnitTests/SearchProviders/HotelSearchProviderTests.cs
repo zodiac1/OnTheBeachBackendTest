@@ -1,44 +1,21 @@
 using Moq;
 using OnTheBeachBackendTest.BusinessLogic.SearchProviders;
+using OnTheBeachBackendTest.Data;
 using OnTheBeachBackendTest.Entities;
 using OnTheBeachBackendTest.Types.DataSources;
 using OnTheBeachBackendTest.Types.SearchPredicates;
 using OnTheBeachBackendTest.Types.Sorters;
-using System.Text.Json;
 
 namespace OnTheBeachBackendTest.UnitTests.SearchProviders
 {
     public class HotelSearchProviderTests
     {
-        private IList<Hotel>? TestHotels;
+        private IList<Hotel>? TestHotelsData;
 
         [SetUp]
         public void Setup()
         {
-            using (var reader = new StreamReader("hotel-data.json"))
-            {
-                var json = reader.ReadToEnd();
-                var hotelsRaw = JsonSerializer.Deserialize<List<Dictionary<string, dynamic>>>(json);
-
-                TestHotels = new List<Hotel>();
-
-                foreach (var item in hotelsRaw)
-                {
-                    JsonElement localAirportsRaw = item["local_airports"];
-                    string[] localAirports = new string[localAirportsRaw.GetArrayLength()];
-                    var enumerator = localAirportsRaw.EnumerateArray();
-
-                    var i = 0;
-
-                    while (enumerator.MoveNext())
-                    {
-                        localAirports[i++] = enumerator.Current.GetString()!;
-                    }
-
-
-                    TestHotels.Add(new Hotel { Id = item["id"].GetInt32(), Name = item["name"].GetString(), PricePerNight = item["price_per_night"].GetDouble(), ArrivalDate = DateTime.Parse(item["arrival_date"].GetString()), LocalAirports = localAirports, Nights = item["nights"].GetInt32() });
-                }
-            }
+            TestHotelsData = Helpers.GetTestHotelsData();
         }
 
         [Test]
@@ -50,13 +27,13 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var sorterMock = new Mock<ISorter<Hotel>>();
 
             dataSourceMock.Setup(x => x.GetData())
-                .Returns(TestHotels);
+                .Returns(TestHotelsData);
 
             searchPredicateMock.Setup(x => x.IsMatch(It.IsAny<Hotel>()))
                 .Returns(true);
 
             sorterMock.Setup(x => x.Sort(It.IsAny<IEnumerable<Hotel>>()))
-                .Returns(TestHotels);
+                .Returns(TestHotelsData);
 
             var dataSource = dataSourceMock.Object;
             var searchPredicate = searchPredicateMock.Object;
@@ -81,7 +58,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var sorterMock = new Mock<ISorter<Hotel>>();
 
             dataSourceMock.Setup(x => x.GetData())
-                .Returns(TestHotels);
+                .Returns(TestHotelsData);
 
             searchPredicateMock.Setup(x => x.IsMatch(It.IsAny<Hotel>()))
                 .Returns(false);
@@ -131,11 +108,11 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var searchPredicateMock = new Mock<ISearchPredicate<Hotel>>();
             var sorterMock = new Mock<ISorter<Hotel>>();
 
-            var testHotel1 = TestHotels[1];
-            var testHotel2 = TestHotels[2];
+            var testHotel1 = TestHotelsData[1];
+            var testHotel2 = TestHotelsData[2];
 
             dataSourceMock.Setup(x => x.GetData())
-                .Returns(TestHotels);
+                .Returns(TestHotelsData);
 
             searchPredicateMock.Setup(x => x.IsMatch(testHotel1))
                 .Returns(true);
@@ -144,7 +121,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
                 .Returns(true);
 
             sorterMock.Setup(x => x.Sort(It.IsAny<IEnumerable<Hotel>>()))
-                .Returns(TestHotels);
+                .Returns(TestHotelsData);
 
             var dataSource = dataSourceMock.Object;
             var searchPredicate = searchPredicateMock.Object;
