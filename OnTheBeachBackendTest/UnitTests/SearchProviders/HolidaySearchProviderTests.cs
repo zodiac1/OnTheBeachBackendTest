@@ -66,10 +66,10 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var hotelSearchProvider = new SearchProvider<Hotel> { DataSource = hotelDataSource, SearchPredicate = hotelSearchPredicate, Sorter = hotelSorter };
 
             //Act
-            var holidayResults = new HolidaySearchProvider().Search(flightSearchProvider, hotelSearchProvider);
+            var holiday = new HolidaySearchProvider().Search(flightSearchProvider, hotelSearchProvider);
 
             //Assert
-            Assert.IsNotNull(holidayResults);
+            Assert.IsNotNull(holiday);
         }
     }
 }
