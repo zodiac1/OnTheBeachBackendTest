@@ -9,7 +9,7 @@ namespace OnTheBeachBackendTest.IntegrationTests
 {
     public class FlightSearchTests
     {
-        private IList<Flight>? TestFlightsData;
+        private IList<Flight> TestFlightsData;
 
         [SetUp]
         public void Setup()

@@ -10,7 +10,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
 {
     public class FlightSearchProviderTests
     {
-        private IList<Flight>? TestFlightsData;
+        private IList<Flight> TestFlightsData;
 
         [SetUp]
         public void Setup()
@@ -45,6 +45,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var allFlights = searchProvider.Search();
 
             //Assert
+            Assert.IsNotNull(allFlights);
             Assert.True(allFlights.Any());
             Assert.True(allFlights.Count() == 12);
         }

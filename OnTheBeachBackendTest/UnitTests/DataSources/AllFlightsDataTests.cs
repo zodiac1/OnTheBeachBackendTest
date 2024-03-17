@@ -6,7 +6,7 @@ namespace OnTheBeachBackendTest.UnitTests.DataSources
 {
     public class AllFlightsDataTests
     {
-        private IList<Flight>? TestFlightsData;
+        private IList<Flight> TestFlightsData;
 
         [SetUp]
         public void Setup()
@@ -24,6 +24,7 @@ namespace OnTheBeachBackendTest.UnitTests.DataSources
             var allFlights = allFlightsData.GetData();
 
             //Assert
+            Assert.IsNotNull(allFlights);
             Assert.True(allFlights.Any());
             Assert.True(allFlights.Count() == 12);
         }

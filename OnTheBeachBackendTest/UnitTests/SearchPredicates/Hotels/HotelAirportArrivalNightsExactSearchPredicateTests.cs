@@ -6,7 +6,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchPredicates.Hotels
 {
     public class HotelAirportArrivalNightsExactSearchPredicateTests
     {
-        private IList<Hotel>? TestHotelsData;
+        private IList<Hotel> TestHotelsData;
 
         [SetUp]
         public void Setup()

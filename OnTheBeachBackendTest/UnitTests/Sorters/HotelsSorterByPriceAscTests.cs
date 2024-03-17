@@ -6,7 +6,7 @@ namespace OnTheBeachBackendTest.UnitTests.Sorters
 {
     public class HotelsSorterByPriceAscTests
     {
-        private IList<Hotel>? TestHotelsData;
+        private IList<Hotel> TestHotelsData;
 
         [SetUp]
         public void Setup()

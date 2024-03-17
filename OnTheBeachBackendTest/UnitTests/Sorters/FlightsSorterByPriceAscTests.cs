@@ -7,7 +7,7 @@ namespace OnTheBeachBackendTest.UnitTests.Sorters
 {
     public class FlightsSorterByPriceAscTests
     {
-        private IList<Flight>? TestFlightsData;
+        private IList<Flight> TestFlightsData;
 
         [SetUp]
         public void Setup()
@@ -24,7 +24,7 @@ namespace OnTheBeachBackendTest.UnitTests.Sorters
             var flightsSorterByPriceAsc = new FlightsSorterByPriceAsc();
 
             //Act
-            var sortedFlights = flightsSorterByPriceAsc.Sort(allFlights);
+            var sortedFlights = flightsSorterByPriceAsc.Sort(allFlights!);
 
             //Assert
             Assert.True(sortedFlights.Any());

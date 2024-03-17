@@ -9,7 +9,7 @@ namespace OnTheBeachBackendTest.IntegrationTests
 {
     public class HotelSearchTests
     {
-        private IList<Hotel>? TestHotelsData;
+        private IList<Hotel> TestHotelsData;
 
         [SetUp]
         public void Setup()

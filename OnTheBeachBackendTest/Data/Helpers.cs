@@ -5,7 +5,7 @@ namespace OnTheBeachBackendTest.Data
 {
     public static class Helpers
     {
-        public static IList<Flight>? GetTestFlightsData()
+        public static IList<Flight> GetTestFlightsData()
         {
             using (var reader = new StreamReader("flight-data.json"))
             {
@@ -14,7 +14,7 @@ namespace OnTheBeachBackendTest.Data
 
                 var testFlights = new List<Flight>();
 
-                foreach (var item in flightsRaw)
+                foreach (var item in flightsRaw!)
                 {
                     testFlights.Add(new Flight { Id = item["id"].GetInt32(), Airline = item["airline"].GetString(), From = item["from"].GetString(), To = item["to"].GetString(), Price = item["price"].GetDouble(), DepartureDate = DateTime.Parse(item["departure_date"].GetString()) });
                 }
@@ -23,7 +23,7 @@ namespace OnTheBeachBackendTest.Data
             }
         }
 
-        public static IList<Hotel>? GetTestHotelsData()
+        public static IList<Hotel> GetTestHotelsData()
         {
             using (var reader = new StreamReader("hotel-data.json"))
             {
@@ -32,7 +32,7 @@ namespace OnTheBeachBackendTest.Data
 
                 var testHotels = new List<Hotel>();
 
-                foreach (var item in hotelsRaw)
+                foreach (var item in hotelsRaw!)
                 {
                     JsonElement localAirportsRaw = item["local_airports"];
                     string[] localAirports = new string[localAirportsRaw.GetArrayLength()];

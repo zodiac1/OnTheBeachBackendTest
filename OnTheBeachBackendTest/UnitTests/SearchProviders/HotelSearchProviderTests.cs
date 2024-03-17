@@ -10,7 +10,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
 {
     public class HotelSearchProviderTests
     {
-        private IList<Hotel>? TestHotelsData;
+        private IList<Hotel> TestHotelsData;
 
         [SetUp]
         public void Setup()
@@ -45,6 +45,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchProviders
             var allHotels = searchProvider.Search();
 
             //Assert
+            Assert.IsNotNull(allHotels);
             Assert.True(allHotels.Any());
             Assert.True(allHotels.Count() == 13);
         }

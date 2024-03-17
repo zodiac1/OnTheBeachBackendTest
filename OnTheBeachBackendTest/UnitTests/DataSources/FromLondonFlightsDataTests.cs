@@ -8,7 +8,7 @@ namespace OnTheBeachBackendTest.UnitTests.DataSources
     {
         private readonly string[] LONDON_AIRPORT_CODES = ["LCY", "LHR", "LGW", "LTN", "STN", "SEN"];
 
-        private IList<Flight>? TestFlightsData;
+        private IList<Flight> TestFlightsData;
 
         [SetUp]
         public void Setup()
@@ -26,6 +26,7 @@ namespace OnTheBeachBackendTest.UnitTests.DataSources
             var londonFlights = londonFlightsData.GetData();
 
             //Assert
+            Assert.IsNotNull(londonFlights);
             Assert.True(londonFlights.Any());
             Assert.True(londonFlights.Count() == 4);
             Assert.True(londonFlights.All(flight => LONDON_AIRPORT_CODES.Any(code => code.Equals(flight.From, StringComparison.OrdinalIgnoreCase))));

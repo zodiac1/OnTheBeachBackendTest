@@ -6,7 +6,7 @@ namespace OnTheBeachBackendTest.UnitTests.SearchPredicates.Flights
 {
     public class FlightToFromDepartureExactSearchPredicateTests
     {
-        private IList<Flight>? TestFlightsData;
+        private IList<Flight> TestFlightsData;
 
         [SetUp]
         public void Setup()
